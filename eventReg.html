@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        .notification {
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f0f0f0;
+            max-width: 100%;
+            display: none; /* Hidden by default */
+            z-index: 1000; /* Ensure it's above other content */
+        }
+        .notification-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .notification-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .notification-list li {
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .notification-list li .delete-btn {
+            cursor: pointer;
+            color: red;
+            margin-left: 5px;
+        }
+        .sortable {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <!-- Event Registration Form -->
+            <div class="col-md-6">
+                <h2 class="mt-4 mb-3">Event Registration</h2>
+                <form id="eventForm">
+                    <div class="form-group">
+                        <label for="eventName">Event Name:</label>
+                        <input type="text" class="form-control" id="eventName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventDate">Event Date:</label>
+                        <input type="date" class="form-control" id="eventDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventTime">Event Time:</label>
+                        <input type="time" class="form-control" id="eventTime" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+
+            <!-- Events List -->
+            <div class="col-md-6">
+                <h2 class="mt-4 mb-3">Events List</h2>
+                <input type="text" id="filterInput" placeholder="Filter events by name" class="form-control mb-3">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th class="sortable" data-column="serialNo">Serial No.</th>
+                            <th class="sortable" data-column="name">Event Name</th>
+                            <th class="sortable" data-column="date">Event Date</th>
+                            <th class="sortable" data-column="time">Event Time</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody id="eventTableBody"></tbody>
+                </table>
+                <ul class="pagination"></ul>
+            </div>
+        </div>
+
+        <!-- Upcoming Event Notification -->
+        <div id="notificationArea" class="notification">
+            <div class="notification-title">Upcoming Event Notification:</div>
+            <ul id="notificationList" class="list-group notification-list"></ul>
+            <button id="clearNotificationBtn" class="btn btn-sm btn-danger mt-3">Clear Notifications</button>
+        </div>
+    </div>
+
+    <audio id="notificationSound">
+        <source src="mixkit-confirmation-tone-2867.wav" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script src="eventReg.js"></script>
+</body>
+</html>
